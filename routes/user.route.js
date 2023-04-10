@@ -51,17 +51,16 @@ app.put("/:id", async (req, res) => {
     }
 });
 
-app.delete("/:id", async (req, res) => {
+app.delete("/:id", async(req, res)=>{
+    const id= req.params.id;
+    console.log(id)
     try {
-        const user = await UserModel.findById(req.params.id);
-        if (!user) {
-            return res.status(404).send("User not found");
-        }
-        await user.remove();
-        return res.send("User deleted successfully");
-    } catch (e) {
-        return res.status(500).send(e.message);
-    }
-});
+       await UserModel.findByIdAndDelete({_id:id});
+       res.send("Deleted Item");
+   } catch (error) {
+       console.log(error);
+       res.send("Unable to delete")
+   }
+  })
 
 module.exports = app;
