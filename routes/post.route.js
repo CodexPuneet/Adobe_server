@@ -55,22 +55,19 @@ app.put('/:id', async (req, res) => {
     }
 });
 
-app.delete('/:id', async (req, res) => {
+
+
+app.delete("/:id", async(req, res)=>{
+  const id= req.params.id;
+  console.log(id)
   try {
-
-    const { id } = req.params;
-    const post = await postModel.findById(id);
-    if (!post) {
-      return res.status(404).json({ message: 'Post not found' });
-    }
-    await post.delete();
-
-    res.status(200).json({ message: 'Post deleted successfully' });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Error deleting post' });
-  }
-});
+     await postModel.findByIdAndDelete({_id:id});
+     res.send("Deleted Item");
+ } catch (error) {
+     console.log(error);
+     res.send("Unable to delete")
+ }
+})
 
 app.post('/:id/like', async (req, res) => {
   try {
