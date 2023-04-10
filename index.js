@@ -5,7 +5,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyparser = require("body-parser");
-const { connection } = require("./Config/db");
+const { connection } = require("./config/db");
 
 const userRouter = require("./routes/user.route");
 const postRouter = require("./routes/post.route");
